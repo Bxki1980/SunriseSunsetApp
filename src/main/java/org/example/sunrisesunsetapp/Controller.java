@@ -1,34 +1,82 @@
 package org.example.sunrisesunsetapp;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class Controller {
-    @FXML
-    private TextField cityTextField;
-    @FXML
-    private Label sunriseLabel, sunsetLabel, durationLabel;
-    @FXML
-    private TableView<SunriseSunsetData> savedTimesTable;
-    @FXML
-    private TableColumn<SunriseSunsetData, String> cityColumn, sunriseColumn, sunsetColumn, dayLengthColumn;
 
-    private APIHandler apiHandler = new APIHandler();
-    private DataService dataService = new DataService();
+    @FXML
+    private TextField cityField;
 
-    public void initialize() {
-        // Initialize table columns and load saved data
+    @FXML
+    private Label latitudeLabel;
+
+    @FXML
+    private Label longitudeLabel;
+
+    @FXML
+    private Label sunriseLabel;
+
+    @FXML
+    private Label sunsetLabel;
+
+    @FXML
+    private Label dayLengthLabel;
+
+    @FXML
+    public void fetchSunriseSunsetData(ActionEvent event) {
+        String city = cityField.getText();
+        if (city.isEmpty()) {
+            System.out.println("City name cannot be empty.");
+            return;
+        }
+
+        try {
+            // Fetch location (latitude and longitude)
+            Location location = APIHandler.getLocation(city);
+            if (location == null) {
+                System.out.println("Error: Unable to fetch location data.");
+                return;
+            }
+
+            latitudeLabel.setText(String.valueOf(location.getLatitude()));
+            longitudeLabel.setText(String.valueOf(location.getLongitude()));
+
+            // Fetch sunrise and sunset data
+            SunriseSunsetData data = APIHandler.getSunriseSunsetData(location.getLatitude(), location.getLongitude());
+            if (data != null) {
+                sunriseLabel.setText(data.getSunrise());
+                sunsetLabel.setText(data.getSunset());
+                dayLengthLabel.setText(formatDayLength(data.getDayLength()));
+            } else {
+                System.out.println("Error: Unable to fetch sunrise and sunset data.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    private void handleFetchButtonAction() {
-        // Handle fetch button click: get data from API and save to DB
+    public void clearFields(ActionEvent event) {
+        cityField.clear();
+        latitudeLabel.setText("-");
+        longitudeLabel.setText("-");
+        sunriseLabel.setText("-");
+        sunsetLabel.setText("-");
+        dayLengthLabel.setText("-");
     }
 
-    private void loadSavedData() {
-        // Load data from the database into the table
+    @FXML
+    public void exitApplication(ActionEvent event) {
+        System.exit(0);
     }
 
-    private void showAlert(String message) {
-        // Utility method to show alert dialogs
+    private String formatDayLength(long seconds) {
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long remainingSeconds = seconds % 60;
+        return String.format("%02dh %02dm %02ds", hours, minutes, remainingSeconds);
     }
 }

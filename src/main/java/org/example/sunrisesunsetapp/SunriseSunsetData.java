@@ -1,12 +1,25 @@
 package org.example.sunrisesunsetapp;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class SunriseSunsetData {
-    private StringProperty city;
-    private StringProperty sunrise;
-    private StringProperty sunset;
-    private StringProperty dayLength;
+    private final String sunrise;
+    private final String sunset;
+    private final long dayLength;
 
-    // Getters and methods
+    public SunriseSunsetData(String sunrise, String sunset, long dayLength) {
+        this.sunrise = sunrise;
+        this.sunset = sunset;
+        this.dayLength = dayLength;
+    }
+
+    public String getSunrise() {
+        return sunrise;
+    }
+
+    public String getSunset() {
+        return sunset;
+    }
+
+    public long getDayLength() {
+        return dayLength;
+    }
 }
