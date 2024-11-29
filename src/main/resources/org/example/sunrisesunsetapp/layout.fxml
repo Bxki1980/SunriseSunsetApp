@@ -5,40 +5,24 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="org.example.sunrisesunsetapp.Controller">
     <children>
-        <!-- Title -->
-        <Label layoutX="14.0" layoutY="10.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Sunrise and Sunset Tracker" />
-
-        <!-- Input Section -->
-        <HBox layoutX="14.0" layoutY="50.0" spacing="10.0">
+        <Label layoutX="20.0" layoutY="10.0" text="Sunrise and Sunset Tracker" styleClass="title-label" />
+        <HBox layoutX="20.0" layoutY="60.0" spacing="10.0">
             <TextField fx:id="cityField" prefWidth="250.0" promptText="Enter City Name" />
             <Button onAction="#fetchSunriseSunsetData" text="Search" />
         </HBox>
-
-        <!-- Data Display Section -->
-        <GridPane layoutX="14.0" layoutY="100.0" hgap="10.0" vgap="10.0">
-            <!-- Row 1 -->
+        <GridPane layoutX="20.0" layoutY="120.0" hgap="20.0" vgap="10.0">
             <Label text="Latitude:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
             <Label fx:id="latitudeLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-
-            <!-- Row 2 -->
             <Label text="Longitude:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
             <Label fx:id="longitudeLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-
-            <!-- Row 3 -->
             <Label text="Sunrise:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
             <Label fx:id="sunriseLabel" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-
-            <!-- Row 4 -->
             <Label text="Sunset:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
             <Label fx:id="sunsetLabel" text="-" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-
-            <!-- Row 5 -->
             <Label text="Day Length:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
             <Label fx:id="dayLengthLabel" text="-" GridPane.rowIndex="4" GridPane.columnIndex="1" />
         </GridPane>
-
-        <!-- Buttons -->
-        <HBox layoutX="14.0" layoutY="250.0" spacing="10.0">
+        <HBox layoutX="20.0" layoutY="280.0" spacing="20.0">
             <Button onAction="#clearFields" text="Clear" />
             <Button onAction="#exitApplication" text="Exit" />
         </HBox>

@@ -34,7 +34,6 @@ public class Controller {
         }
 
         try {
-            // Fetch location (latitude and longitude)
             Location location = APIHandler.getLocation(city);
             if (location == null) {
                 System.out.println("Error: Unable to fetch location data.");
@@ -44,7 +43,6 @@ public class Controller {
             latitudeLabel.setText(String.valueOf(location.getLatitude()));
             longitudeLabel.setText(String.valueOf(location.getLongitude()));
 
-            // Fetch sunrise and sunset data
             SunriseSunsetData data = APIHandler.getSunriseSunsetData(location.getLatitude(), location.getLongitude());
             if (data != null) {
                 sunriseLabel.setText(data.getSunrise());
